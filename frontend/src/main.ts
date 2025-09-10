@@ -1,6 +1,15 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { App } from './app/app';
+import { bootstrapApplication, platformBrowser } from '@angular/platform-browser';
+import { provideHttpClient } from '@angular/common/http';
+import { AppModule } from './app/app-module';
+import { AppComponent } from './app/app.component';
 
-bootstrapApplication(App, appConfig)
-  .catch((err) => console.error(err));
+platformBrowser().bootstrapModule(AppModule, {
+  ngZoneEventCoalescing: true,
+})
+  .catch(err => console.error(err));
+  
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient() // ✅ hinzufügen
+  ]
+});
